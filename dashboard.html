@@ -768,7 +768,7 @@
     <button onclick="showSection('gallerySection')">Gallery</button>
     <button onclick="showSection('reservationsPage')">Reservations</button>
     <button onclick="showSection('unavailableDaysSection')">Unavailable Days</button>
-    <button onclick="showSection('homeCallsSection')">🚗 Drop-Offs</button>
+
   </div>
 
   <!-- Gallery Management -->
@@ -794,11 +794,11 @@
 
     <label for="photoCategorySelect">Select Category</label>
     <select id="photoCategorySelect">
-      <option value="FADES">FADES</option>
-      <option value="KIDS CUT">KIDS CUT</option>
-      <option value="SPECIAL DESIGNS">SPECIAL DESIGNS</option>
-      <option value="ONE LEVEL">ONE LEVEL</option>
-      <option value="LADIES CUT">LADIES CUT</option>
+      <option value="EXTERIOR DETAILING">EXTERIOR DETAILING</option>
+      <option value="INTERIOR DETAILING">INTERIOR DETAILING</option>
+      <option value="FULL DETAIL">FULL DETAIL</option>
+      <option value="CERAMIC COATING">CERAMIC COATING</option>
+      <option value="PAINT CORRECTION">PAINT CORRECTION</option>
     </select>
 
     <button onclick="uploadPhotos()" id="uploadBtn">Add Photos</button>
@@ -840,13 +840,6 @@
       The Calendar
     </h3>
     <ul id="unavailableDatesList" style="font-family:'Inter',sans-serif; font-size:13px; list-style:none; padding:0;"></ul>
-  </div>
-
-  <!-- Drop-Off Requests Section -->
-  <div class="admin-container content-section" id="homeCallsSection">
-    <div class="admin-kicker">Drop-Offs</div>
-    <h2>Drop-Off Requests</h2>
-    <div id="homeCallsList" style="margin-top:8px;"></div>
   </div>
 
   <!-- Conflict Modal -->
@@ -917,60 +910,9 @@
     function showSection(sectionId) {
       document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
       document.getElementById(sectionId).classList.add('active');
-      if (sectionId === 'homeCallsSection') loadHomeCalls();
+      if (sectionId === 'reservationsPage') loadReservations();
     }
 
-    // ========== HOME CALL REQUESTS ==========
-    function loadHomeCalls() {
-      const container = document.getElementById('homeCallsList');
-      container.innerHTML = '<p style="color:var(--text-dim); font-size:13px;">Loading…</p>';
-      db.collection('homeCallRequests').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-        if (snapshot.empty) {
-          container.innerHTML = '<p style="color:var(--text-dim); font-size:13px; text-align:center; padding:30px 0;">No drop-off requests yet.</p>';
-          return;
-        }
-        container.innerHTML = '';
-        snapshot.forEach(doc => {
-          const r = doc.data();
-          const dateStr = r.date ? (() => { const [y,m,d] = r.date.split('-'); return new Date(y,m-1,d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); })() : 'N/A';
-          const statusColor = r.status === 'Quoted' ? '#C8151B' : r.status === 'Declined' ? 'var(--hot)' : 'var(--amber)';
-          container.innerHTML += `
-            <div style="background:var(--surface2); border:1px solid rgba(200,21,27,0.15); border-left:4px solid #C8151B; border-radius:8px; padding:16px; margin-bottom:14px;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-                <div>
-                  <div style="font-family:'Oswald',sans-serif; font-weight:900; font-size:16px; color:var(--text); letter-spacing:1px;">🚗 ${r.name || 'N/A'}</div>
-                  <div style="font-size:11px; color:#C8151B; font-family:'Oswald',sans-serif; letter-spacing:2px; text-transform:uppercase;">Ref: ${r.refNum || doc.id}</div>
-                </div>
-                <span style="background:rgba(200,21,27,0.1); border:1px solid ${statusColor}; color:${statusColor}; padding:3px 10px; border-radius:20px; font-size:11px; font-family:'Oswald',sans-serif; letter-spacing:2px; font-weight:700; white-space:nowrap;">${r.status || 'Pending'}</span>
-              </div>
-              <div style="font-size:13px; color:var(--text); line-height:1.9;">
-                <div>📞 <strong>Phone:</strong> ${r.phone || 'N/A'}</div>
-                <div>📅 <strong>Date:</strong> ${dateStr}</div>
-                <div>💈 <strong>Service:</strong> ${r.service || 'N/A'}</div>
-                <div>📍 <strong>Location:</strong> ${r.location || 'N/A'}</div>
-                ${r.notes ? `<div>📝 <strong>Notes:</strong> ${r.notes}</div>` : ''}
-                <div style="color:var(--amber); margin-top:4px;">⚠️ Travel fee: <strong>$5,000+</strong> added to service price</div>
-              </div>
-              <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
-                <button onclick="updateHomeCallStatus('${doc.id}','Quoted')" style="padding:7px 14px; background:rgba(200,21,27,0.15); border:1px solid #C8151B; color:#C8151B; border-radius:5px; font-size:11px; font-family:'Oswald',sans-serif; letter-spacing:2px; font-weight:700; text-transform:uppercase; cursor:pointer;">✓ Quoted</button>
-                <button onclick="updateHomeCallStatus('${doc.id}','Declined')" style="padding:7px 14px; background:rgba(255,32,82,0.1); border:1px solid var(--hot); color:var(--hot); border-radius:5px; font-size:11px; font-family:'Oswald',sans-serif; letter-spacing:2px; font-weight:700; text-transform:uppercase; cursor:pointer;">✕ Decline</button>
-                <button onclick="deleteHomeCall('${doc.id}')" style="padding:7px 14px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:var(--text-dim); border-radius:5px; font-size:11px; font-family:'Oswald',sans-serif; letter-spacing:2px; font-weight:700; text-transform:uppercase; cursor:pointer;">🗑 Delete</button>
-              </div>
-            </div>
-          `;
-        });
-      });
-    }
-
-    function updateHomeCallStatus(id, status) {
-      db.collection('homeCallRequests').doc(id).update({ status });
-    }
-
-    function deleteHomeCall(id) {
-      if (confirm('Delete this drop-off request?')) {
-        db.collection('homeCallRequests').doc(id).delete();
-      }
-    }
 
     function toggleTimeInputs() {
       const isAllDay = document.getElementById('allDayCheckbox').checked;
