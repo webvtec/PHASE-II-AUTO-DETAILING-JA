@@ -1253,26 +1253,6 @@ form button {
 .sidebar-util-payment.active::before,
 .sidebar-util-admin.active::before { display: none; }
 
-/* ---- Home Call sidebar button ---- */
-.sidebar-util-homecall {
-  color: #C8151B !important;
-  background: rgba(200,21,27,0.06);
-  border: 1px solid rgba(200,21,27,0.25);
-  border-radius: 8px;
-  margin: 4px 12px;
-  width: calc(100% - 24px);
-  padding: 12px 16px;
-  font-size: 13px;
-  box-shadow: inset 0 0 16px rgba(200,21,27,0.04);
-  transition: all 0.2s ease;
-}
-.sidebar-util-homecall:hover {
-  background: rgba(200,21,27,0.13) !important;
-  border-color: #C8151B !important;
-  box-shadow: 0 0 14px rgba(184,255,110,0.22), inset 0 0 16px rgba(200,21,27,0.06);
-  color: #fff !important;
-}
-.sidebar-util-homecall.active::before { display: none; }
 
 </style>
 </head>
@@ -1356,10 +1336,6 @@ form button {
       <span>Admin</span>
     </a>
 
-    <a class="sidebar-nav-item sidebar-util-homecall" onclick="openHomeCallModal(); closeSidebar();" href="javascript:void(0);">
-      <span class="sn-icon">🚚</span>
-      <span>Book a Drop-Off</span>
-    </a>
 
     <div class="sidebar-divider"></div>
 
@@ -1496,7 +1472,7 @@ form button {
 
 <!-- Booking Section -->
 <div class="content-section" id="bookingSection">
-  <div class="section-kicker">Book Your Detail</div>
+  <div class="section-kicker">Reserve Your Slot</div>
   <h1>Book Your <span class="accent">Detail</span></h1>
 
   <div class="booking-rules-card" style="max-width:500px; margin:20px auto 0 auto; background:var(--surface2); border:1px solid var(--border-neon); border-radius:6px; padding:16px 20px;">
@@ -1528,13 +1504,13 @@ form button {
 
     <label for="selectedTime">Available Times:</label>
     <select id="selectedTime" required>
-      <option value="">Complete form to see available slots</option>
+      <option value="">Choose car type and package first</option>
     </select>
 
-    <!-- Vehicle Type -->
-    <label for="ageGroup">Vehicle Type:</label>
+    <!-- Car Type -->
+    <label for="ageGroup">Car Type:</label>
     <select id="ageGroup" onchange="onAgeGroupChange();">
-      <option value="NONE">NONE</option>
+      <option value="NONE">— Select Car Type —</option>
       <option value="adult">SEDAN / COUPE</option>
       <option value="teen">SUV / CROSSOVER</option>
       <option value="kids">TRUCK / VAN</option>
@@ -1542,7 +1518,7 @@ form button {
 
     <!-- Adult: service picker -->
     <div id="adultServiceWrap" style="display:none;">
-      <label for="adultService">Detail Package:</label>
+      <label for="adultService">Service Package:</label>
       <select id="adultService" onchange="onServiceChange();">
         <option value="">— Choose Package —</option>
         <option value="adult-Express Wash">Express Wash — $2,500</option>
@@ -1557,7 +1533,7 @@ form button {
 
     <!-- Teen: service picker -->
     <div id="teenServiceWrap" style="display:none;">
-      <label for="teenService">Detail Package:</label>
+      <label for="teenService">Service Package:</label>
       <select id="teenService" onchange="onServiceChange();">
         <option value="">— Choose Package —</option>
         <option value="teen-Express Wash">Express Wash — $3,000</option>
@@ -1572,7 +1548,7 @@ form button {
 
     <!-- Kids: service picker -->
     <div id="kidsServiceWrap" style="display:none;">
-      <label for="kidsService">Detail Package:</label>
+      <label for="kidsService">Service Package:</label>
       <select id="kidsService" onchange="onServiceChange();">
         <option value="">— Choose Package —</option>
         <option value="kids-Express Wash">Express Wash — $3,500</option>
@@ -1593,7 +1569,7 @@ form button {
 
     <!-- Selected items summary -->
     <div id="selectionSummary" style="display:none; margin-bottom:14px; padding:10px 12px; background:#111; border:1px solid var(--accent); border-radius:6px;">
-      <div id="selectionSummaryTitle" style="font-family:'Oswald',sans-serif;letter-spacing:1.5px;font-size:13px;color:var(--accent);margin-bottom:5px;">✔ YOUR SELECTION:</div>
+      <div id="selectionSummaryTitle" style="font-family:'Oswald',sans-serif;letter-spacing:1.5px;font-size:13px;color:var(--accent);margin-bottom:5px;">✔ YOUR PACKAGE:</div>
       <div id="selectionSummaryText"></div>
     </div>
 
@@ -1787,118 +1763,6 @@ form button {
   </div>
 </div>
 
-<!-- Home Call Modal -->
-<div id="homeCallModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:flex-start; z-index:10000; backdrop-filter:blur(8px); overflow-y:auto; padding:70px 0 40px;">
-  <div style="background:var(--surface); border:1px solid rgba(200,21,27,0.25); border-radius:10px; max-width:440px; width:92%; margin:0 auto; position:relative; box-shadow:0 30px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(200,21,27,0.15);">
-    <!-- Top colour bar -->
-    <div style="height:3px; background:linear-gradient(90deg,#C8151B,#E8C547,#C0C8D4); border-radius:10px 10px 0 0;"></div>
-    <!-- Close -->
-    <button onclick="closeHomeCallModal()" style="position:absolute; top:14px; right:14px; background:transparent; border:1px solid rgba(255,255,255,0.1); width:32px; height:32px; border-radius:50%; font-size:14px; cursor:pointer; color:var(--text-dim); display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onmouseover="this.style.borderColor='#C8151B';this.style.color='#C8151B'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='var(--text-dim)'">✕</button>
-
-    <div style="padding:28px 24px 28px;">
-      <!-- Header -->
-      <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; color:#C8151B; letter-spacing:4px; text-transform:uppercase; margin-bottom:6px;">Drop-Off</div>
-      <h3 style="margin:0 0 6px; color:var(--text); font-family:'Rajdhani',sans-serif; font-weight:800; font-size:24px;">Book a Drop-Off</h3>
-      <p style="font-size:13px; color:var(--text-dim); margin:0 0 6px; line-height:1.5;">Fill out the form and we'll confirm your drop-off slot.</p>
-
-      <!-- ⚠️ Pricing notice -->
-      <div style="background:rgba(200,21,27,0.06); border:1px solid rgba(200,21,27,0.2); border-radius:6px; padding:12px 14px; margin-bottom:20px;">
-        <div style="display:flex; align-items:flex-start; gap:10px;">
-          <span style="font-size:18px; flex-shrink:0;">🏠</span>
-          <div>
-            <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:12px; color:var(--amber); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Drop-Off Pricing</div>
-            <p style="font-size:12px; color:var(--text-dim); margin:0; line-height:1.6;">Bring your vehicle to <strong style="color:var(--amber);">Unit B2, 34 Upper Waterloo Rd, Kingston</strong>. Slots are by appointment only.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Form -->
-      <div id="homeCallFormWrap">
-        <div style="margin-bottom:14px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Full Name *</label>
-          <input id="hc_name" type="text" placeholder="Your full name" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='#C8151B'" onblur="this.style.borderColor='var(--border)'"/>
-        </div>
-
-        <div style="margin-bottom:14px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Phone Number *</label>
-          <input id="hc_phone" type="tel" inputmode="numeric" maxlength="14" placeholder="(876) 123-4567" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='#C8151B'" onblur="this.style.borderColor='var(--border)'"/>
-        </div>
-
-        <div style="margin-bottom:14px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Preferred Date *</label>
-          <input id="hc_date" type="date" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='#C8151B'" onblur="this.style.borderColor='var(--border)'"/>
-        </div>
-
-        <div style="margin-bottom:14px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Haircut *</label>
-          <select id="hc_ageGroup" onchange="hcOnAgeGroupChange()" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border 0.2s; -webkit-appearance:none;" onfocus="this.style.borderColor='#C8151B'" onblur="this.style.borderColor='var(--border)'">
-            <option value="NONE">— Select vehicle type —</option>
-            <option value="adult">SEDAN / COUPE</option>
-            <option value="teen">SUV / CROSSOVER</option>
-            <option value="kids">TRUCK / VAN</option>
-          </select>
-        </div>
-
-        <div id="hc_adultWrap" style="display:none; margin-bottom:14px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Adult Cut *</label>
-          <select id="hc_adultService" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; -webkit-appearance:none;">
-            <option value="NONE">— Choose package —</option>
-            <option value="Express Wash — $2,500">Express Wash — $2,500</option>
-            <option value="Full Exterior Detail — $5,000">Full Exterior Detail — $5,000</option>
-            <option value="Interior Deep Clean — $6,000">Interior Deep Clean — $6,000</option>
-            <option value="Full Detail — $10,000">Full Detail (In &amp; Out) — $10,000</option>
-            <option value="Paint Correction — $18,000">Paint Correction — $18,000</option>
-            <option value="Ceramic Coating — $25,000">Ceramic Coating — $25,000</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <div id="hc_teenWrap" style="display:none; margin-bottom:14px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Teen Cut *</label>
-          <select id="hc_teenService" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; -webkit-appearance:none;">
-            <option value="NONE">— Choose package —</option>
-            <option value="Express Wash — $3,000">Express Wash — $3,000</option>
-            <option value="Full Exterior Detail — $6,000">Full Exterior Detail — $6,000</option>
-            <option value="Interior Deep Clean — $7,000">Interior Deep Clean — $7,000</option>
-            <option value="Full Detail — $12,000">Full Detail (In &amp; Out) — $12,000</option>
-            <option value="Paint Correction — $22,000">Paint Correction — $22,000</option>
-            <option value="Ceramic Coating — $30,000">Ceramic Coating — $30,000</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <div id="hc_kidsWrap" style="display:none; margin-bottom:14px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Kids Cut *</label>
-          <select id="hc_kidsService" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; -webkit-appearance:none;">
-            <option value="NONE">— Choose package —</option>
-            <option value="Express Wash — $3,500">Express Wash — $3,500</option>
-            <option value="Full Exterior Detail — $7,000">Full Exterior Detail — $7,000</option>
-            <option value="Interior Deep Clean — $8,000">Interior Deep Clean — $8,000</option>
-            <option value="Full Detail — $14,000">Full Detail (In &amp; Out) — $14,000</option>
-            <option value="Paint Correction — $25,000">Paint Correction — $25,000</option>
-            <option value="Ceramic Coating — $35,000">Ceramic Coating — $35,000</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <div style="margin-bottom:14px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Vehicle Location / Address *</label>
-          <input id="hc_location" placeholder="Preferred time or any notes" type="text" placeholder="e.g. Kingston — your address or nearby landmark" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='#C8151B'" onblur="this.style.borderColor='var(--border)'"/>
-        </div>
-
-        <div style="margin-bottom:20px;">
-          <label style="display:block; font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Additional Notes</label>
-          <textarea id="hc_notes" rows="3" placeholder="Anything else we should know?" style="width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; outline:none; resize:vertical; transition:border 0.2s;" onfocus="this.style.borderColor='#C8151B'" onblur="this.style.borderColor='var(--border)'"></textarea>
-        </div>
-
-        <button onclick="submitHomeCallRequest()" id="hc_submitBtn" style="width:100%; padding:15px; background:linear-gradient(135deg,#C8151B,#A01015); color:#07070F; border:none; border-radius:8px; font-family:'Oswald',sans-serif; font-weight:900; font-size:15px; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; box-shadow:0 4px 20px rgba(200,21,27,0.25);" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 28px rgba(184,255,110,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(200,21,27,0.25)'">
-          🚗 Request Quote
-        </button>
-        <p id="hc_msg" style="text-align:center; margin-top:12px; font-size:13px; display:none;"></p>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Admin Login Modal -->
 <div id="adminLoginModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background-color:rgba(0,0,0,0.75); justify-content:center; align-items:center; z-index:10000; backdrop-filter:blur(6px);">
@@ -2167,16 +2031,16 @@ const firebaseConfig = {
 
   function getSelectedServices() {
     const haircut = document.getElementById('haircutType')?.value || "NONE";
-    if (!haircut || haircut === 'NONE') return 'No services selected';
+    if (!haircut || haircut === 'NONE') return 'No package selected';
 
     const def = pricingCardDefs[haircut];
     const isOther = def && def.isOther;
 
-    if (isOther && selectedAddons.size === 0) return 'No services selected';
+    if (isOther && selectedAddons.size === 0) return 'No add-ons selected';
 
     const packageLabel = def ? def.label : haircut;
     const parts = [packageLabel];
-    if (selectedCutItem) parts.push('Cut: ' + selectedCutItem);
+    if (selectedCutItem) parts.push('Package: ' + selectedCutItem);
     selectedAddons.forEach(a => parts.push('Add-on: ' + a));
 
     return parts.join(' | ');
@@ -2270,7 +2134,7 @@ const firebaseConfig = {
   function getSelectedItemsString(packageLabel) {
     const parts = [];
     if (packageLabel) parts.push(packageLabel);
-    if (selectedCutItem) parts.push('Cut: ' + selectedCutItem);
+    if (selectedCutItem) parts.push('Package: ' + selectedCutItem);
     selectedAddons.forEach(a => parts.push('Add-on: ' + a));
     return parts.join(' | ');
   }
@@ -2326,7 +2190,7 @@ const firebaseConfig = {
   });
 
   function buildPricingCard(headerHTML, sections, basePrice) {
-    const priceTag = basePrice ? `<div style="margin:10px 0 6px;text-align:center;"><span style="display:inline-block;background:var(--accent);color:#1a1a1a;font-family:'Rajdhani',sans-serif;font-size:22px;letter-spacing:2px;padding:6px 22px;border-radius:6px;">CUT PRICE: $${Number(basePrice).toLocaleString()}</span></div>` : '<div style="margin:6px 0 4px;text-align:center;font-family:\'Rajdhani\',cursive;font-size:13px;letter-spacing:1px;color:#aaa;">Choose your add-ons below — no base cut charge</div>';
+    const priceTag = basePrice ? `<div style="margin:10px 0 6px;text-align:center;"><span style="display:inline-block;background:var(--accent);color:#1a1a1a;font-family:'Rajdhani',sans-serif;font-size:22px;letter-spacing:2px;padding:6px 22px;border-radius:6px;">PACKAGE PRICE: $${Number(basePrice).toLocaleString()}</span></div>` : '<div style="margin:6px 0 4px;text-align:center;font-family:\'Rajdhani\',cursive;font-size:13px;letter-spacing:1px;color:#aaa;">Choose your add-ons below — no base service charge</div>';
     let html = `<div style="background:var(--accent);padding:10px 14px;">
       <span style="font-family:'Rajdhani',sans-serif;letter-spacing:2px;font-size:14px;color:#1a1a1a;">${headerHTML}</span>
     </div>
@@ -2529,7 +2393,7 @@ const firebaseConfig = {
 
     const hasService = haircut !== "NONE";
     if (!date || !hasService) {
-      timeSelect.innerHTML = "<option value=''>COMPLETE FORM TO SEE AVAILABLE SLOTS</option>";
+      timeSelect.innerHTML = "<option value=''>CHOOSE CAR TYPE AND PACKAGE FIRST</option>";
       return;
     }
 
@@ -2538,7 +2402,7 @@ const firebaseConfig = {
     const business = businessHours[dayName];
 
     if (walkInDays.includes(dayName)) {
-      timeSelect.innerHTML = "<option value=''>Walk-ins only on " + dayName + "s — no online booking</option>";
+      timeSelect.innerHTML = "<option value=''>No slots available on " + dayName + " — please select another day</option>";
       return;
     }
 
@@ -2634,7 +2498,7 @@ const firebaseConfig = {
     const business = businessHours[dayName];
 
     if (walkInDays.includes(dayName)) {
-      alert(`${dayName} is a walk-in only day. Appointments are on Mondays, Wednesdays, and Fridays.`);
+      alert(`${dayName} is not available for appointments. Please choose another day.`);
       return Promise.resolve(false);
     }
 
@@ -2710,15 +2574,15 @@ const firebaseConfig = {
       return;
     }
 
-    if (services === 'No services selected') {
-      alert('Please select at least one service before booking.');
+    if (services === 'No package selected' || services === 'No add-ons selected') {
+      alert('Please select a service package before booking.');
       return;
     }
 
     const haircutVal = document.getElementById('haircutType')?.value || 'NONE';
     const isOtherCut = haircutVal.endsWith('-Other');
     if (isOtherCut && selectedAddons.size === 0) {
-      alert('Please select at least one add-on for the Other option before booking.');
+      alert('Please select at least one add-on before booking.');
       return;
     }
 
@@ -2774,7 +2638,7 @@ const firebaseConfig = {
         document.getElementById('serviceIncludesCard').style.display = 'none';
         document.getElementById('serviceIncludesCard').innerHTML = '';
         document.getElementById("estimateTimeMessage").innerHTML = "";
-        document.getElementById("selectedTime").innerHTML = "<option value=''>Pick date & service first</option>";
+        document.getElementById("selectedTime").innerHTML = "<option value=''>Select package first</option>";
         document.querySelector("#bookingModal h3").style.display = "none";
         document.querySelector("#bookingModal p").innerHTML = `
           <div style="text-align:center; font-family:'Outfit',sans-serif; color:var(--text-ink);">
@@ -2787,7 +2651,7 @@ const firebaseConfig = {
               <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dotted rgba(26,26,30,0.15); font-size:13px;"><span style="color:#888; letter-spacing:1px; text-transform:uppercase; font-size:11px;">Ref #</span><span style="font-weight:600; font-family:'Rajdhani',sans-serif;">${bookingNumber}</span></div>
               <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dotted rgba(26,26,30,0.15); font-size:13px;"><span style="color:#888; letter-spacing:1px; text-transform:uppercase; font-size:11px;">Date</span><span>${formattedDate}</span></div>
               <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dotted rgba(26,26,30,0.15); font-size:13px;"><span style="color:#888; letter-spacing:1px; text-transform:uppercase; font-size:11px;">Time</span><span>${time}</span></div>
-              <div style="padding:8px 0 2px; font-size:13px;"><div style="color:#888; letter-spacing:1px; text-transform:uppercase; font-size:11px; margin-bottom:4px;">Service</div><div>${services}</div></div>
+              <div style="padding:8px 0 2px; font-size:13px;"><div style="color:#888; letter-spacing:1px; text-transform:uppercase; font-size:11px; margin-bottom:4px;">Detail Package</div><div>${services}</div></div>
             </div>
             ${total > 0 ? `<div style="background:var(--ink); color:var(--cream); padding:12px 16px; margin-bottom:16px; font-family:'Rajdhani',sans-serif; font-size:18px; letter-spacing:1px; border-radius:4px;"><span style="font-weight:700; color:var(--neon); font-size:11px; letter-spacing:4px; text-transform:uppercase; display:block; margin-bottom:2px;">Total</span>$${total.toLocaleString()}</div>` : ''}
             <p style="font-family:'Outfit',sans-serif; font-style:italic; font-size:15px; margin:14px 0; color:var(--text-ink);">"Thank you for booking with Gleam Auto. We look forward to making your vehicle shine!"</p>
@@ -3096,102 +2960,6 @@ const firebaseConfig = {
   }
 
   // ========== HOME CALL MODAL ==========
-  function openHomeCallModal() {
-    const modal = document.getElementById('homeCallModal');
-    modal.style.display = 'flex';
-    // set min date on date picker
-    const hcDate = document.getElementById('hc_date');
-    if (hcDate) hcDate.setAttribute('min', new Date().toISOString().split('T')[0]);
-  }
-
-  function closeHomeCallModal() {
-    document.getElementById('homeCallModal').style.display = 'none';
-  }
-
-  function hcOnAgeGroupChange() {
-    const group = document.getElementById('hc_ageGroup').value;
-    document.getElementById('hc_adultWrap').style.display = group === 'adult' ? 'block' : 'none';
-    document.getElementById('hc_teenWrap').style.display  = group === 'teen'  ? 'block' : 'none';
-    document.getElementById('hc_kidsWrap').style.display  = group === 'kids'  ? 'block' : 'none';
-  }
-
-  function submitHomeCallRequest() {
-    const name     = (document.getElementById('hc_name').value || '').trim();
-    const phone    = (document.getElementById('hc_phone').value || '').trim();
-    const date     = (document.getElementById('hc_date').value || '').trim();
-    const ageGroup = document.getElementById('hc_ageGroup').value;
-    const location = (document.getElementById('hc_location').value || '').trim();
-    const notes    = (document.getElementById('hc_notes').value || '').trim();
-    const msg      = document.getElementById('hc_msg');
-
-    // Determine selected service
-    let service = '';
-    if (ageGroup === 'adult')       service = document.getElementById('hc_adultService').value;
-    else if (ageGroup === 'teen')   service = document.getElementById('hc_teenService').value;
-    else if (ageGroup === 'kids')   service = document.getElementById('hc_kidsService').value;
-
-    // Validation
-    if (!name || !phone || !date || ageGroup === 'NONE' || !service || service === 'NONE' || !location) {
-      msg.style.display = 'block';
-      msg.style.color   = 'var(--hot)';
-      msg.textContent   = '⚠ Please fill in all required fields.';
-      return;
-    }
-
-    const btn = document.getElementById('hc_submitBtn');
-    btn.disabled    = true;
-    btn.textContent = 'Sending…';
-    msg.style.display = 'none';
-
-    const [y, m, d] = date.split('-');
-    const formattedDate = new Date(y, m - 1, d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-    const refNum = 'HC-' + Date.now().toString().slice(-6);
-
-    // Save to Firestore
-    db.collection('homeCallRequests').add({
-      refNum, name, phone, date, service, location, notes,
-      status: 'Pending',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-      // Send to Telegram
-      const telegramBotToken = "7408061018:AAGUXWiKJp3yf113sVfkVsy5WcuXsTal3P8";
-      const telegramChatId   = "-1003924607314";
-      const telegramMsg = `🚗 DROP-OFF BOOKING REQUEST\n\n🔢 Ref: ${refNum}\n👤 Name: ${name}\n📞 Phone: ${phone}\n📅 Date: ${formattedDate}\n🚗 Service: ${service}\n📍 Location: ${location}${notes ? '\n📝 Notes: ' + notes : ''}\n\n📍 Location: Unit B2, 34 Upper Waterloo Rd, Kingston`;
-      fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: telegramChatId, text: telegramMsg, parse_mode: 'HTML' })
-      }).catch(() => {});
-
-      // Show success
-      document.getElementById('hc_msg').style.display = 'none';
-      document.getElementById('homeCallFormWrap').innerHTML = `
-        <div style="text-align:center; padding:20px 0;">
-          <div style="width:60px; height:60px; border-radius:50%; border:2px solid #C8151B; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:26px;">🏠</div>
-          <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:11px; color:#C8151B; letter-spacing:4px; text-transform:uppercase; margin-bottom:8px;">Request Sent</div>
-          <h3 style="font-family:'Rajdhani',sans-serif; font-weight:800; font-size:22px; color:var(--text); margin:0 0 10px;">Quote on its Way!</h3>
-          <p style="font-size:13px; color:var(--text-dim); line-height:1.6; margin:0 0 6px;">We'll reach out to confirm your quote shortly.</p>
-          <div style="background:var(--surface2); border:1px solid rgba(200,21,27,0.2); border-radius:6px; padding:12px; margin:16px 0; font-size:13px; color:var(--text-dim);">
-            <strong style="color:#C8151B;">Ref #: ${refNum}</strong><br>
-            Remember: Drop-off location: <strong style="color:var(--amber);">Unit B2, 34 Upper Waterloo Rd, Kingston</strong>.
-          </div>
-          <button onclick="closeHomeCallModal()" style="padding:12px 30px; background:linear-gradient(135deg,#C8151B,#A01015); color:#07070F; border:none; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:900; font-size:13px; letter-spacing:3px; text-transform:uppercase; cursor:pointer;">Close</button>
-        </div>
-      `;
-    }).catch(err => {
-      btn.disabled    = false;
-      btn.textContent = '🚗 Request Quote';
-      msg.style.display = 'block';
-      msg.style.color   = 'var(--hot)';
-      msg.textContent   = '⚠ Failed to send. Please try again.';
-    });
-  }
-
-  // Close home call modal on backdrop click
-  document.getElementById('homeCallModal').addEventListener('click', function(e) {
-    if (e.target === this) closeHomeCallModal();
-  });
 
   // ========== WALK-IN SLOTS DISPLAY ==========
   function renderWalkInSlots() {
